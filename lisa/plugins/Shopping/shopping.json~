@@ -12,7 +12,7 @@
     "lang": ["fr","en"],
     "configuration": {
         "intents": {
-            "shopping_newlist": {
+            "shopping_new": {
                 "method": "newlist",
                 "corpus": {}
             },
@@ -20,8 +20,8 @@
                 "method": "deletelist",
                 "corpus": {}
             },
-            "shopping_getlist": {
-                "method": "getlist",
+            "shopping_list": {
+                "method": "list",
                 "corpus": {}
             },
             "shopping_add": {
