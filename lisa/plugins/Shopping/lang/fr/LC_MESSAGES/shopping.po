@@ -18,81 +18,75 @@ msgstr ", puis "
 
 #-----------------newlist
 msgid "cant create without name "
-msgstr "(5,\"je ne peux pas créer une liste sans thème.\"),"
-"(10,\"Je ne peux pas créer une liste sans nom.\"),"
-"(10,\"J'ai besoin d'un nom pour faire une nouvelle liste.\") "
+msgstr  "(5,  \"je ne peux pas créer une liste sans thème\"),"
+        "(10, \"Je ne peux pas créer une liste sans nom\"),"
+        "(10, \"J'ai besoin d'un nom pour faire une nouvelle liste\") "
 
 msgid "duplicate name"
-msgstr "(10,\"Cette liste existe déjà.\"),"
-"(10,\"Cette liste est déjà existante.\"),"
-"(10,\"Je ne peux pas recréer une liste existante.\")"
+msgstr  "(10, \"Cette liste existe déjà\"),"
+        "(10, \"Cette liste est déjà existante\"),"
+        "(10, \"Je ne peux pas recréer une liste existante\")"
 
 msgid "create list"
-msgstr "(10,\"Je viens de créer cette nouvelle liste.\"),"
-"(10,\"Je viens de créer la liste {0}.\"),"
-"(6,\"C est fait.\"),"
-"(10,\"La liste {0} est créée.\")"
+msgstr  "(10, \"Je viens de créer cette nouvelle liste\"),"
+        "(10, \"Je viens de créer la liste {0}\"),"
+        "(6,  \"C est fait\"),"
+        "(10, \"La liste {0} est créée\")"
 
 #-----------------deletelist
-
 msgid "cant delete without name"
-msgstr "(8,\"je ne peux pas supprimer une liste sans son nom.\"),"
-"(10,\"Je ne peux pas supprimer une liste sans connaître son nom.\"),"
-"(10,\"J'ai besoin de son nom pour détruire une liste.\") "
+msgstr  "(8,  \"je ne peux pas supprimer une liste sans son nom\"),"
+        "(10, \"Je ne peux pas supprimer une liste sans connaître son nom\"),"
+        "(10, \"J'ai besoin de son nom pour détruire une liste\") "
 
 msgid "no exiting name"
-msgstr "(10,\"Cette liste n'existe pas.\"),"
-"(10,\"Il n'existe aucune liste avec ce nom.\"),"
-"(10,\"Il n'y a pas de liste avec ce nom.\"),"
-"(10,\"Il n'existe aucune liste correspondante.\")"
+msgstr  "(10, \"Cette liste n'existe pas\"),"
+        "(10, \"Il n'existe aucune liste avec ce nom\"),"
+        "(10, \"Il n'y a pas de liste avec ce nom\"),"
+        "(10, \"Il n'existe aucune liste correspondante\")"
 
 msgid "delete list"
-msgstr "(10,\"Je viens de supprimer la liste.\"),"
-"(10,\"J'efface la liste.\"),"
-"(10,\"Je viens de supprimer la liste {0}.\"),"
-"(7,\"C est fait.\"),"
-"(10,\"La liste {0} est supprimée.\"),"
-"(10,\"La liste {0} n'existe plus.\")"
+msgstr  "(10, \"Je viens de supprimer la liste\"),"
+        "(10, \"J'efface la liste\"),"
+        "(10, \"Je viens de supprimer la liste {0}\"),"
+        "(7,  \"C est fait\"),"
+        "(10, \"La liste {0} est supprimée\"),"
+        "(10, \"La liste {0} n'existe plus\")"
 
 #-----------------getlist
-
 msgid "no list"
-msgstr "Il n'y a pas de liste disponible"
+msgstr  "Il n'y a pas de liste disponible"
 
 msgid "known list"
-msgstr "(10,\"Les listes existantes sont {slist}\"),"
-"(10,\"Les listes en cours sont {slist}.\"),"
-"(10,\"Les listes actives sont {slist}.\"),"
-"(10,\"Vous avez les listes suivantes {slist}.\")"
+msgstr  "(10, \"Les listes existantes sont {slist}\"),"
+        "(10, \"Les listes en cours sont {slist}\"),"
+        "(10, \"Les listes actives sont {slist}\"),"
+        "(10, \"Vous avez les listes suivantes {slist}\")"
 
 msgid "product in list"
-msgstr "(10,\"La liste {slist} contient les produits suivants {sproduct}.\"),"
-"(10,\"{slist} contient les produits suivants {sproduct}.\"),"
-"(10,\"{slist} contient {sproduct}\"),"
-"(10,\"la liste {slist} contient {sproduct}.\")"
-
+msgstr  "(10, \"La liste {slist} contient les produits suivants {sproduct}\"),"
+        "(10, \"{slist} contient les produits suivants {sproduct}\"),"
+        "(10, \"{slist} contient {sproduct}\"),"
+        "(10, \"la liste {slist} contient {sproduct}\")"
 
 #-----------------add
-
 msgid "product added to the list"
-msgstr "(10,\"Le produit a bien été ajouté sur la liste.\"),"
-"(10,\"J'ai ajouté le produit.\"),"
-"(10,\"J'ai ajouté {product} sur la liste.\")"
+msgstr  "(10, \"Le produit a bien été ajouté sur la liste\"),"
+        "(10, \"J'ai ajouté le produit\"),"
+        "(10, \"J'ai ajouté {product} sur la liste\")"
 
 msgid "no item"
-msgstr "(10,\"Je n'ai pas compris le produit à ajouter.\")"
-
-
+msgstr  "(10, \"Je n'ai pas compris le produit à ajouter\")"
 
 #-----------------delete
 msgid "no product to delete"
-msgstr "(10,\"{sproduct} n'existe pas dans {slist}.\"),"
-"(10\"Ce produit n'existe pas.\"),"
-"(10,\"{slist} ne contient pas ce produit.\")"
+msgstr  "(10,   \"{sproduct} n'existe pas dans {slist}\"),"
+        "(10, \"Ce produit n'existe pas\"),"
+        "(10, \"{slist} ne contient pas ce produit\")"
 
 
 msgid "product deleted"
-msgstr "(10,\"Le produit a été enlevé de la liste.\"),"
-"(10,\"Le produit a été supprimé de la liste.\"),"
-"(10,\"{sproduct} a été supprimé de la liste.\"),"
-"(10,\"J'ai enlevé le {sproduct}.\")"
+msgstr  "(10, \"Le produit a été enlevé de la liste\"),"
+        "(10, \"Le produit a été supprimé de la liste\"),"
+        "(10, \"{sproduct} a été supprimé de la liste\"),"
+        "(10, \"J'ai enlevé le {sproduct}\")"
