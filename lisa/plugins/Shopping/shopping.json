@@ -27,12 +27,7 @@
             "shopping_add": {
                 "method": "add",
                 "corpus": {}
-            },
-            "shopping_delete": {
-                "method": "delete",
-                "corpus": {}
             }
-
         }
     }
 }
