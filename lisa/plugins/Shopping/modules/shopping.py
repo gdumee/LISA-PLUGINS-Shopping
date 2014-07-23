@@ -31,7 +31,7 @@ class Shopping(IPlugin):
 
         self.configuration_plugin = self.mongo.lisa.plugins.find_one({"name": "Shopping"})
         self.path = os.path.realpath(os.path.abspath(os.path.join(os.path.split(inspect.getfile(inspect.currentframe()))[0],os.path.normpath("../lang/"))))
-        self._ = NeoTrans(domain='shopping',localedir=self.path,fallback=True,languages=[self.configuration_lisa['lang']], test = __name__).Trans
+        self._ = NeoTrans(domain='shopping',localedir=self.path,fallback=True,languages=[self.configuration_lisa['lang']]).Trans
         self.shoppingList = self.mongo.lisa.plugins.find_one({'_id': self.configuration_plugin['_id'], "lists": {"$exists": True}})
 
 
