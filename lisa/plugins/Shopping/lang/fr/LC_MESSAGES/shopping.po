@@ -84,7 +84,7 @@ msgstr  "(10,\"Il n'y a pas de liste disponible.\"),"
         "(10,\"Il n'existe aucune liste.\"),"
         "(30,\"Vous n'avez aucune liste. Vous devez en créer une nouvelle.\"),"
 
-   
+
 msgid "known list"
 msgstr  "(10, \"Les listes existantes sont {slist}.\"),"
         "(10, \"Les listes en cours sont {slist}.\"),"
@@ -117,4 +117,4 @@ msgstr  "(10, \"Je n'ai pas compris le produit à ajouter.\"),"
         "(10, \"Je n'ai pas compris le produit que vous vouliez ajouter.\"),"
 
 msgid "cant create without name"
-msgstr  ""
+msgstr  "Je ne peux pas créer de liste sans la nommer"
