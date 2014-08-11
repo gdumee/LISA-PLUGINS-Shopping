@@ -15,26 +15,32 @@
 #-----------------------------------------------------------------------------
 # Imports
 #-----------------------------------------------------------------------------
+#Mandatory
 from lisa.server.plugins.IPlugin import IPlugin
 from lisa.Neotique.NeoTrans import NeoTrans
 import gettext
 import inspect
 import os, sys
 
+#ohters
 
 #-----------------------------------------------------------------------------
 # Plugin Shopping class
 #-----------------------------------------------------------------------------
 class Shopping(IPlugin):
     def __init__(self):
+        #super(Shopping, self).__init__(plugin_name = "Shopping")
+        
+        
         super(Shopping, self).__init__()
-
         self.configuration_plugin = self.mongo.lisa.plugins.find_one({"name": "Shopping"})
         self.path = os.path.realpath(os.path.abspath(os.path.join(os.path.split(inspect.getfile(inspect.currentframe()))[0],os.path.normpath("../lang/"))))
         self._ = NeoTrans(domain='shopping',localedir=self.path,fallback=True,languages=[self.configuration_lisa['lang']]).Trans
-        self.shoppingList = self.mongo.lisa.plugins.find_one({'_id': self.configuration_plugin['_id'], "lists": {"$exists": True}})
+        
+        
 
-
+        #self.shoppingList = self.mongo.lisa.plugins.find_one({'_id': self.configuration_plugin['_id'], "lists": {"$exists": True}})
+        self.shoppingList = self.mongo.lisa.plugins.find_one({"name": "Shopping", "lists": {"$exists": True}})
     #-----------------------------------------------------------------------------
     #              Publics  Fonctions
     #-----------------------------------------------------------------------------
@@ -47,11 +53,11 @@ class Shopping(IPlugin):
             namlist = jsonInput['outcome']['entities']['message_subject']['value']
             namlist = namlist.encode('utf8')
         except:
-            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('cant create without name')}
+            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('cant create without name'),"test":"no-name"}
 
         # check if list already  exist
         if self._listExist(namlist) is True:
-            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('duplicate name')}
+            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('duplicate name'),"test":"duplicate"}
 
         #add into db
         self.mongo.lisa.plugins.update({'_id': self.configuration_plugin['_id']},
@@ -60,7 +66,7 @@ class Shopping(IPlugin):
             'lists.'+ namlist + '.items': []
             }},upsert=True)
         smessage = self._('create list').format(namlist)
-        return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": smessage}
+        return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": smessage,"test":"new"}
 
     #-----------------------------------------------------------------------------
     def deletelist(self,jsonInput):
@@ -79,10 +85,9 @@ class Shopping(IPlugin):
             namlist = jsonInput['outcome']['entities']['message_subject']['value']
             item = jsonInput['outcome']['entities']['shopping_item']['value']
         except:
-            #if item =='' :            no matter
-             #   return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no item')}
+            #if item =='' :    no matter
             if namlist =='' :
-                return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no exiting name')}
+                return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no exiting name'),'test':'no-namelist'}
         
 
         # check if selected list  exist
@@ -90,7 +95,7 @@ class Shopping(IPlugin):
         if self._listExist(namlist) is False:
             message = self._('no exiting name') + ' '
             message += self._listAll()
-            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": message}                     #fatal
+            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": message,'test':'no-existing'}                     #fatal
 
         
         #if listExist == True : 
@@ -100,6 +105,7 @@ class Shopping(IPlugin):
             {'_id': self.configuration_plugin['_id']},
             {"$unset": {'lists.'+namlist : ''}},upsert=True)
             message = self._('delete list').format(namlist)
+            test ='del-list'
         else :
             # check if item  exist
             listitem = []
@@ -114,10 +120,12 @@ class Shopping(IPlugin):
                 self.mongo.lisa.plugins.update({'_id': self.configuration_plugin['_id']},
                     {'$pull': {'lists.'+ namlist + '.items': {'name': item}}},upsert=True)
                 message = self._('product deleted').format(sproduct = item)
+                test = 'product'
             else:
                 message = self._('no product to delete').format(sproduct = item, slist = namlist)
+                test = 'no-product'
 
-        return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name,"body": message}
+        return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name,"body": message,'test':test}
         
     #-----------------------------------------------------------------------------
     def getlist(self, jsonInput):
@@ -126,7 +134,7 @@ class Shopping(IPlugin):
         """
         #check if any list exist
         if self._anyListExist() is False : 
-            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no list')}            #fatal
+            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no list'),"test":"no-list"}            #fatal
 
         # Config list name
         namlist=''
@@ -137,9 +145,11 @@ class Shopping(IPlugin):
         
         # check if selected list  exist
         message=''
+        listitem=''
         if self._listExist(namlist) is False:
             message = self._('no exiting name') + ' '
             message += self._listAll()
+            test = 'no-existing'
         else :   
             #list all item in selected list
             listitem = []
@@ -149,8 +159,9 @@ class Shopping(IPlugin):
                 else:
                     listitem.append(item['name'])
             message = self._('product in list').format(slist = namlist, sproduct = ', '.join(listitem)) 
+            test = listitem
             
-        return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": message}
+        return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": message,'test':test}
 
     #-----------------------------------------------------------------------------
     def add(self, jsonInput):
@@ -159,7 +170,7 @@ class Shopping(IPlugin):
         """
         #check if any list exist
         if self._anyListExist() is False : 
-            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no list')}            #fatal
+            return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no list'),'test':'no-list'}            #fatal
         
         # Config
         item =''
@@ -171,9 +182,9 @@ class Shopping(IPlugin):
             namlist = jsonInput['outcome']['entities']['message_subject']['value']
         except:
             if item =='' :
-                return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no item')}            #fatal
+                return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no item'),'test':'no-item'}            #fatal
             if namlist =='' and len(self.shoppingList['lists'])>1:   #special case if juste one list : add to this list
-                return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no exiting name')}            #fatal
+                return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": self._('no exiting name'),'test':'no-list'}            #fatal
             #if qty -> no matter
         
         
@@ -196,7 +207,7 @@ class Shopping(IPlugin):
             message = self._('product added to the list').format(product=item, slist = namlist)
             
             
-        return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": message}
+        return {"plugin": __name__.split('.')[-1], "method": sys._getframe().f_code.co_name, "body": message,'test':'add'}
        
        
        
@@ -234,88 +245,6 @@ class Shopping(IPlugin):
             ret += self.shoppingList['lists'][item]['name'] +','
         return self._('known list').format(slist = ret) 
                 
-            
-    #-----------------------------------------------------------------------------
-    def build_default_list(self):  #for test only
-        shoppingList = self.mongo.lisa.plugins.find_one({'_id': self.configuration_plugin['_id'], "lists.DefaultList": {"$exists": True}})
-        if not shoppingList:
-            self.mongo.lisa.plugins.update(
-                 {'_id': self.configuration_plugin['_id']},{"$set": {
-                         'lists.DefaultList.name': 'DefaultList',
-                         'lists.DefaultList.items': []
-                     }}, upsert=True)
 
-    #-----------------------------------------------------------------------------
-    def deletealllist(self):   #for test only
-        #delete
-        self.mongo.lisa.plugins.update(
-            {'_id': self.configuration_plugin['_id']},
-            {"$unset": {
-            'lists': ''
-            }},upsert=True)
-    
-    
-
-
-
-#-----------------------------------------------------------------------------
-# Tests
-#-----------------------------------------------------------------------------
-if __name__ == "__main__" :
-
-    jsonInput = {'from': u'Lisa-Web', 'zone': u'WebSocket', u'msg_id': u'c7e169a5-9d87-4a43-8a11-9fa75fd0e5ae',
-        u'msg_body': u'fait une nouvelle liste pour les courses',
-        u'outcome':  {
-            u'entities': {
-                u'message_subject': {u'body': u'les courses', u'start': 30, u'end': 41, u'suggested': True, u'value': u'les courses'}},
-            u'confidence': 0.585,
-            u'intent': u'shopping_newlist'},
-        'type': u'chat'}
-
-    jsonInput2 = {'from': u'Lisa-Web', 'zone': u'WebSocket', u'msg_id': u'c7e169a5-9d87-4a43-8a11-9fa75fd0e5ae',
-        u'msg_body': u'supprime la liste pour les courses',
-        u'outcome':  {
-            u'entities': {
-                u'shopping_item': {u'body': u'pack de lait', u'start': 12, u'end': 24, u'suggested': True, u'value': u'PQ'},
-                u'message_subject': {u'body': u'des choses \xe0 acheter', u'start': 40, u'end': 60, u'suggested': True, u'value': u'les courses'}
-                },
-            u'confidence': 0.585,
-            u'intent': u'shopping_delete'},
-        'type': u'chat'}
-
-    jsonInputadd = {'from': u'Lisa-Web', 'zone': u'WebSocket', u'msg_id': u'97c99d41-37d9-4811-95e0-6a5c89d7e1ad',
-        u'msg_body': u'rajoute six pack de lait  dans la liste les courses3',
-        u'outcome': {
-            u'entities': {
-                u'shopping_item': {u'body': u'pack de lait', u'start': 12, u'end': 24, u'suggested': True, u'value': u'beurre'},
-                u'number': {u'body': u'six', u'start': 8, u'end': 11, u'value': 2},
-                u'message_subject': {u'body': u'des choses \xe0 acheter', u'start': 40, u'end': 60, u'suggested': True, u'value': u'les courses2'}
-                },
-            u'confidence': 0.963,
-            u'intent': u'shopping_add'
-            },
-        'type': u'chat'}
-    
-    jsonInputadd2 = {'from': u'Lisa-Web', 'zone': u'WebSocket', u'msg_id': u'97c99d41-37d9-4811-95e0-6a5c89d7e1ad',
-    u'msg_body': u'rajoute six pack de lait  dans la liste les courses3',
-    u'outcome': {
-        u'entities': {
-            u'shopping_item': {u'body': u'pack de lait', u'start': 12, u'end': 24, u'suggested': True, u'value': u'PQ'},
-            u'number': {u'body': u'six', u'start': 8, u'end': 11, u'value': 2},
-            },
-        u'confidence': 0.963,
-        u'intent': u'shopping_add'
-        },
-    'type': u'chat'}
-    
-    essais = Shopping()
-    #retourn = essais.newlist(jsonInput)
-    #retourn = essais.deletelist(jsonInput)
-    #retourn = essais.add(jsonInputadd2)
-    retourn = essais.deletelist(jsonInputadd)
-    print (retourn['body'])
-    
-    retourn = essais.getlist(jsonInput)
-    print (retourn['body'])
 
 # --------------------- End of shopping.py  ---------------------

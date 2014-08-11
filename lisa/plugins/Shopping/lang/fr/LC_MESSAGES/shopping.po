@@ -1,22 +1,38 @@
+#-----------------------------------------------------------------------------
+# copyright   : Neotique
+#-----------------------------------------------------------------------------
 msgid ""
-msgstr ""
-"Project-Id-Version: 0.1\n"
-"Report-Msgid-Bugs-To: Julien Syx\n"
-"POT-Creation-Date: 2013-07-05 07:49+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Julien SYX <julien.syx@lisa-project.net>\n"
-"Language-Team: FR <julien.syx@lisa-project.net>\n"
-"Language: fr\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+msgstr  "Last-Translator: Gilles Dumée <gilles.dumee@neotique.fr>\n"
+        "Language-Team: Neotique>\n"
+        "Language: fr\n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../modules/shopping.py
+#-----------------------------------------------------------------------------
+# Plugin description
+#-----------------------------------------------------------------------------
+msgid "i_can_plugin"
+msgstr  "(10, \"Je peux mettre en route une radio\"),"
+
+msgid "i_can_startRadio"
+msgstr  "(10, \"Je peux mettre en route et arrêter une radio\"),"
+        "(10, \"Je peux jouer une web radio\"),"
+        "(10, \"Nous pouvons nous demander comment nous allons\"),"
+
+msgid "i_can_setVolume"
+msgstr  "(10, \"Je peux changer le volume de la radio\"),"
+        "(10, \"Vous pouvez me demander de changer le volume\"),"
+
+
 
 msgid "then"
 msgstr "(10,\", puis \"),"
 
-#-----------------newlist
+#-----------------------------------------------------------------------------
+# newlist
+#-----------------------------------------------------------------------------
+
 msgid "cant create without name "
 msgstr  "(5,  \"je ne peux pas créer une liste sans thème\"),"
         "(10, \"Je ne peux pas créer une liste sans nom\"),"
@@ -40,7 +56,10 @@ msgstr  "(10, \"Je viens de créer cette nouvelle liste.\"),"
         "(8,  \"Vous avez une nouvelle liste.\"),"
         "(10, \"La liste {0} est créée.\"),"
 
-#-----------------deletelist
+#-----------------------------------------------------------------------------
+# deletelist
+#-----------------------------------------------------------------------------
+
 #msgid "cant delete without name"
 #msgstr  "(8,  \"je ne peux pas supprimer une liste sans son nom\"),"
 #        "(10, \"Je ne peux pas supprimer une liste sans connaître son nom\"),"
@@ -61,7 +80,11 @@ msgstr  "(10, \"Je viens de supprimer la liste.\"),"
         "(7,  \"C est fait.\"),"
         "(10, \"La liste {0} est supprimée.\"),"
         "(10, \"La liste {0} n'existe plus.\"),"
-#-----------------deleteitem
+        
+#-----------------------------------------------------------------------------
+# deleteitem
+#-----------------------------------------------------------------------------
+
 msgid "no product to delete"
 msgstr  "(10, \"{sproduct} n'existe pas dans {slist}.\"),"
         "(10, \"Ce produit n'existe pas.\"),"
@@ -77,7 +100,9 @@ msgstr  "(10, \"Le produit a été enlevé de la liste.\"),"
         "(10, \"J'ai enlevé le {sproduct}.\"),"
 
 
-#-----------------getlist
+#-----------------------------------------------------------------------------
+# getlist
+#-----------------------------------------------------------------------------
 msgid "no list"
 msgstr  "(10,\"Il n'y a pas de liste disponible.\"),"
         "(10,\"Vous n'avez aucune liste en cours.\"),"
@@ -99,7 +124,9 @@ msgstr  "(10, \"La liste {slist} contient les produits suivants {sproduct}.\"),"
         "(10, \"{slist} contient {sproduct}.\"),"
         "(10, \"la liste {slist} contient {sproduct}.\"),"
 
-#-----------------add
+#-----------------------------------------------------------------------------
+# add
+#-----------------------------------------------------------------------------
 msgid "product added to the list"
 msgstr  "(10, \"Le produit a bien été ajouté sur la liste.\"),"
         "(10, \"J'ai ajouté le produit.\"),"
